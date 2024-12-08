@@ -1,0 +1,85 @@
+/* General Body and Page Setup */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../Image/SignUp.png'); /* Background image */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #330202af;
+    background-color: #f9f2f200;
+}
+
+/* Navbar 1 - Kadirdi College */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Navbar 2 - Links */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+.dashboard-content {
+    margin: 20px;
+    text-align: center; /* Center the content in the dashboard */
+}
+
+h3 {
+    color: #333;
+    font-size: 24px;
+    text-align: center; /* Center-align the heading */
+}
+
+table {
+    width: 80%; /* Adjust table width */
+    margin: 20px auto; /* Center the table on the page */
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center; /* Center-align the text in both th and td */
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+td {
+    background-color: #f4f4f4;
+}
+
+table tr:nth-child(even) td {
+    background-color: #e1e1e1;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+p {
+    color: #555;
+    text-align: center; /* Center the paragraph */
+}

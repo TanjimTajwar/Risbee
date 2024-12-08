@@ -1,0 +1,144 @@
+drop database std1;
+
+
+CREATE DATABASE std1;
+
+-- Step 2: Use the created database
+USE std1;
+
+-- Step 3: Create the studentInfo table
+CREATE TABLE studentInfo (
+    Roll INT unique,
+    username VARCHAR(50) PRIMARY KEY,
+    StudentName VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    GroupSub ENUM('Science', 'Arts', 'Business') NOT NULL,
+    Gender ENUM('Male', 'Female') NOT NULL,
+    Address VARCHAR(255) NOT NULL
+);
+
+-- Step 4: Create the teacher table
+CREATE TABLE teacher (
+	TeacherUser varchar(50) PRIMARY KEY,
+    TeacherID INT unique,
+    Name VARCHAR(255) NOT NULL,
+    CourseID INT,
+    Password VARCHAR(50) NOT NULL,
+    GroupSub ENUM('Science', 'Arts', 'Business', 'Combined') NOT NULL
+);
+
+-- Step 5: Create the subject table
+CREATE TABLE subject (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(255) NOT NULL,
+    CourseGroup ENUM('Science', 'Arts', 'Business', 'Combined') NOT NULL,
+    TotalMarks INT NOT NULL,
+    TeacherID INT,
+    FOREIGN KEY (TeacherID) REFERENCES teacher(TeacherID)
+);
+
+-- Step 6: Create the attendance table
+CREATE TABLE attendance (
+    CourseID INT,
+    TotalAttendance INT NOT NULL,
+    Roll INT,
+    TeacherID INT,
+    PRIMARY KEY (CourseID, Roll),  -- Composite primary key
+    FOREIGN KEY (CourseID) REFERENCES subject(CourseID),
+    FOREIGN KEY (Roll) REFERENCES studentInfo(Roll),
+    FOREIGN KEY (TeacherID) REFERENCES teacher(TeacherID)
+);
+
+-- Step 7: Create the result table
+CREATE TABLE result (
+    ResultID INT PRIMARY KEY AUTO_INCREMENT,
+    Roll INT,
+    TotalAttendance INT,
+    TotalMarks INT NOT NULL,
+    Status ENUM('Passed', 'Failed') NOT NULL,
+    FOREIGN KEY (Roll) REFERENCES studentInfo(Roll),
+    FOREIGN KEY (TotalAttendance, Roll) REFERENCES attendance(CourseID, Roll)  -- Composite foreign key
+);
+
+-- Step 8: Insert data into the studentInfo table
+INSERT INTO studentInfo (Roll, username, StudentName, Password, GroupSub, Gender, Address) VALUES
+(1, 'tahsin123', 'Tahsin Ahmed', 'password1', 'Science', 'Male', 'Chattogram'),
+(2, 'arif123', 'Arif Hossain', 'password2', 'Science', 'Male', 'Dhaka'),
+(3, 'salma123', 'Salma Akter', 'password3', 'Science', 'Female', 'Sylhet'),
+(4, 'mizan123', 'Mizan Rahman', 'password4', 'Science', 'Male', 'Rajshahi'),
+(5, 'nabila123', 'Nabila Karim', 'password5', 'Science', 'Female', 'Khulna'),
+(6, 'sajid123', 'Sajid Islam', 'password6', 'Science', 'Male', 'Barisal'),
+(7, 'ratul123', 'Ratul Mahmud', 'password7', 'Science', 'Male', 'Rangpur'),
+(8, 'farzana123', 'Farzana Khan', 'password8', 'Science', 'Female', 'Mymensingh'),
+(9, 'sadia123', 'Sadia Nahar', 'password9', 'Science', 'Female', 'Comilla'),
+(10, 'nirob123', 'Nirob Chowdhury', 'password10', 'Science', 'Male', 'Narayanganj');
+
+INSERT INTO studentInfo (Roll, username, StudentName, Password, GroupSub, Gender, Address) VALUES
+(11, 'ayon123', 'Ayon Chowdhury', 'password11', 'Business', 'Male', 'Chattogram'),
+(12, 'nafisa123', 'Nafisa Karim', 'password12', 'Business', 'Female', 'Dhaka'),
+(13, 'nazmul123', 'Nazmul Hassan', 'password13', 'Business', 'Male', 'Sylhet'),
+(14, 'tania123', 'Tania Akter', 'password14', 'Business', 'Female', 'Rajshahi'),
+(15, 'sajib123', 'Sajib Rahman', 'password15', 'Business', 'Male', 'Khulna'),
+(16, 'ria123', 'Ria Nahar', 'password16', 'Business', 'Female', 'Barisal'),
+(17, 'fahim123', 'Fahim Ahmed', 'password17', 'Business', 'Male', 'Rangpur'),
+(18, 'shima123', 'Shima Akter', 'password18', 'Business', 'Female', 'Mymensingh'),
+(19, 'mohsin123', 'Mohsin Khan', 'password19', 'Business', 'Male', 'Comilla'),
+(20, 'suvo123', 'Suvo Karim', 'password20', 'Business', 'Male', 'Narayanganj');
+
+
+INSERT INTO studentInfo (Roll, username, StudentName, Password, GroupSub, Gender, Address) VALUES
+(21, 'nadim123', 'Nadim Rahman', 'password21', 'Arts', 'Male', 'Chattogram'),
+(22, 'lima123', 'Lima Sultana', 'password22', 'Arts', 'Female', 'Dhaka'),
+(23, 'jony123', 'Jony Islam', 'password23', 'Arts', 'Male', 'Sylhet'),
+(24, 'arifa123', 'Arifa Khan', 'password24', 'Arts', 'Female', 'Rajshahi'),
+(25, 'tushar123', 'Tushar Hasan', 'password25', 'Arts', 'Male', 'Khulna'),
+(26, 'ruma123', 'Ruma Akter', 'password26', 'Arts', 'Female', 'Barisal'),
+(27, 'shahin123', 'Shahin Mahmud', 'password27', 'Arts', 'Male', 'Rangpur'),
+(28, 'maisha123', 'Maisha Akter', 'password28', 'Arts', 'Female', 'Mymensingh'),
+(29, 'saif123', 'Saif Ahmed', 'password29', 'Arts', 'Male', 'Comilla'),
+(30, 'tanvir123', 'Tanvir Rahman', 'password30', 'Arts', 'Male', 'Narayanganj');
+
+
+
+
+
+-- Step 9: Insert data into the teacher table
+INSERT INTO teacher (TeacherUser, TeacherID, Name, CourseID, Password, GroupSub) VALUES
+('t1001', 1001, 'Abdul Karim', 1, 'teachpass1', 'Science'),
+('t1002', 1002, 'Rashida Begum', 2, 'teachpass2', 'Science'),
+('t1003', 1003, 'Mahmud Hossain', 3, 'teachpass3', 'Science'),
+('t1004', 1004, 'Fatema Jahan', 4, 'teachpass4', 'Science'),
+('t1005', 1005, 'Iqbal Hossain', 5, 'teachpass5', 'Science'),
+('t1006', 1006, 'Sumaiya Akter', 6, 'teachpass6', 'Science'),
+('t1007', 1007, 'Nasir Uddin', 7, 'teachpass7', 'Science'),
+('t1008', 1008, 'Rafiq Rahman', 8, 'teachpass8', 'Science'),
+('t1009', 1009, 'Rehana Parvin', 9, 'teachpass9', 'Science'),
+('t1010', 1010, 'Latif Hossain', 10, 'teachpass10', 'Science');
+
+INSERT INTO teacher (TeacherUser, TeacherID, Name, CourseID, Password, GroupSub) VALUES
+('t1011', 1011, 'Masud Karim', 6, 'teachpass11', 'Business'),
+('t1012', 1012, 'Jahanara Begum', 7, 'teachpass12', 'Business'),
+('t1013', 1013, 'Farid Ahmed', 8, 'teachpass13', 'Business'),
+('t1014', 1014, 'Shahnaz Sultana', 9, 'teachpass14', 'Business');
+
+INSERT INTO teacher (TeacherUser, TeacherID, Name, CourseID, Password, GroupSub) VALUES
+('t1015', 1015, 'Habib Rahman', 10, 'teachpass15', 'Arts'),
+('t1016', 1016, 'Anwara Begum', 11, 'teachpass16', 'Arts'),
+('t1017', 1017, 'Sadiq Islam', 12, 'teachpass17', 'Arts'),
+('t1018', 1018, 'Sufia Akter', 13, 'teachpass18', 'Arts'),
+('t1019', 1019, 'Kamal Hossain', 14, 'teachpass19', 'Arts');
+
+
+INSERT INTO subject (CourseID, CourseName, CourseGroup, TotalMarks, TeacherID) VALUES
+(1, 'Physics', 'Science', 100, 1001),
+(2, 'Chemistry', 'Science', 100, 1002),
+(3, 'Higher Math', 'Science', 100, 1003),
+(4, 'Biology', 'Science', 100, 1004),
+(5, 'Statistics', 'Science', 100, 1005),
+(6, 'Accounting', 'Business', 100, 1011),
+(7, 'Marketing', 'Business', 100, 1012),
+(8, 'Finance', 'Business', 100, 1013),
+(9, 'CAJ', 'Business', 100, 1014),
+(10, 'Art', 'Arts', 100, 1015);
+
+
